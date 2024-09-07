@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/my-lists"></ion-back-button>
+    </ion-buttons>
+    <ion-title translate>new-list</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button type="submit" [disabled]="!myForm.valid" (click)="onAddShoppingList(myForm)">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- nome lista -->
+<ion-content class="ion-padding">
+  <form #myForm="ngForm" >
+    <ion-item>
+      <ion-input 
+      #listName 
+      [label]="labelName" 
+      labelPlacement="floating" 
+      [placeholder]="objName" 
+      name="name"
+      ngModel 
+      required>
+    </ion-input>
+    </ion-item>
+  </form>
+</ion-content>

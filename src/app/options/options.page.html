@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title translate>options</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-item class="my-padding">
+      <ion-toggle #theme (ionChange)="onChangeTheme($event)" translate>
+        change-theme
+      </ion-toggle>
+    </ion-item>
+    <ion-item class="my-padding">
+      <ion-toggle #completedToBottom (ionChange)="onChangeCompletedToBottom($event)">
+        <div class="ion-text-wrap" translate>
+          objects-to-bottom-o
+        </div>
+      </ion-toggle>
+    </ion-item>
+    <ion-item class="my-padding">
+      <ion-toggle #doubleClick (ionChange)="onChangeDoubleClick($event)">
+        <div translate>
+          double-click-del-o
+        </div>
+      </ion-toggle>
+    </ion-item>
+    <!-- <ion-item class="my-padding">
+      <ion-toggle #autoDelete >
+        <div class="ion-text-wrap" translate>
+          Cancella in automatico le liste completate
+        </div>
+      </ion-toggle>
+    </ion-item> -->
+
+    <ion-item class="my-padding">
+      <ion-select #lang [label]="'select-language' | translate" aria-label="lang" interface="alert" (ionChange)="onChangeLang(lang.value)">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="it">Italiano</ion-select-option>
+      </ion-select>
+    </ion-item>
+  <!-- </ion-list> -->
+</ion-content>

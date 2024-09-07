@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#3880ff" />
+
+  <ion-toolbar>
+    <ion-title translate>app-title</ion-title>
+    <ion-buttons slot="end" class="ion-padding-right">
+      <ion-button>
+        <!-- <ion-icon name="person-add-outline" slot="icon-only"></ion-icon> -->
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="!shoppingLists[listId]" class="ion-text-center ion-padding">
+    <ion-button  routerLink="/tabs/my-lists">
+      <ion-label>{{ noListMessage }}</ion-label>
+    </ion-button>
+  </div>
+
+  <div *ngIf="shoppingLists && shoppingLists[listId]" class="title-padding">
+
+    <ion-item  class="my-list-name" lines="none">
+      <ion-icon *ngIf="shoppingLists[listId].completed === shoppingLists[listId].items.length"color="success" name="checkmark-outline"></ion-icon>
+      <ion-label class="ion-text-center no-margin">
+        <span>{{ shoppingLists[listId].name | uppercase }}</span>
+        <p class="font-detail"><span>{{ shoppingLists[listId].completed }}</span> / <span>{{ shoppingLists[listId].items.length }}</span></p>        
+      </ion-label>
+      <ion-buttons class="ion-no-padding">
+        <ion-button (click)="onListOptions()">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+    </ion-item>
+
+    <div *ngIf="shoppingLists[listId].items.length <= 0" class="ion-text-center ion-padding">
+      <ion-label translate>add-advice</ion-label>
+    </div>
+    <div *ngIf="shoppingLists[listId].items.length > 0" >
+      <div *ngFor="let item of shoppingLists[listId].items | sort: sortType:'checked' : triggerSortPipe; let i = index;" class="my-padding">
+        <ion-item [appItemChecked]="item.checked">
+          <!-- <ion-text class="my-text">🛒</ion-text> -->
+          <ion-checkbox 
+            #check [checked]="item.checked" 
+            labelPlacement="end" justify="start"  aria-label="d" 
+            (ionChange)="onCheckItem(i, check.checked)"
+            class="custom-pos-checkbox"
+            
+            >{{item.name + " " + item.amount }}</ion-checkbox>
+          <ion-buttons class="custom-pos"  (click)="onRemoveItem(i)">
+            <ion-button >
+              <ion-icon  color="danger" slot="icon-only"  name="close-outline" ></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-button 
+    *ngIf="shoppingLists[listId]" 
+    color="light" 
+    expand="block" 
+    (click)="onOpenModal('add-item')" 
+    translate>add</ion-button>
+</ion-footer>

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="onCancel()" translate>cancel</ion-button>
+    </ion-buttons>
+
+      <ion-title color="dark" class="ion-text-center" >{{ getConfirm() }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button type="submit" color="primary" (click)="confirm()" [strong]="true" [disabled]="form?.invalid" translate>confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form"> 
+    <ion-grid >
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-input [label]="name"
+            type="text" 
+            labelPlacement="floating" 
+            [placeholder]="objName"
+            formControlName="name"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="this.isAddItem">
+        <ion-col>
+          <ion-item >
+            <ion-input 
+            [label]="amount"
+            type="number" 
+            labelPlacement="floating" 
+            [placeholder]="amount"
+            formControlName="amount"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col  size="4" class="">
+          <ion-item button id="popover-button">
+            <ion-buttons style="height: 56px;">
+                <ion-label >{{unit}}</ion-label>
+                <ion-icon name="caret-down-outline" size="small"></ion-icon>
+            </ion-buttons>
+          </ion-item>
+
+          <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+            <ng-template>
+              <ion-content>
+                <ion-list>
+                  <ion-item [button]="true" [detail]="false"  (click)="onSelectUnit('pcs')">pcs</ion-item>
+                  <ion-item [button]="true" [detail]="false"  (click)="onSelectUnit('g')">g</ion-item>
+                  <ion-item [button]="true" [detail]="false" (click)="onSelectUnit('kg')">Kg</ion-item>
+                  <ion-item [button]="true" [detail]="false" (click)="onSelectUnit('l.')">l.</ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title translate>
+      tab-my-lists
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="shoppingLists.length <= 0" class="ion-text-center ion-padding">
+    <ion-label class="ion-padding" translate>create-a-list</ion-label>
+  </div>
+  <div *ngFor="let shoppingList of shoppingLists; let i = index" class="ion-padding">
+    <ion-item>
+        <ion-icon *ngIf="!isCompleted(i)" name="chevron-back-outline"  (click)="onSelectList(i)"></ion-icon>
+        <ion-icon *ngIf="isCompleted(i)" name="checkmark-outline"></ion-icon>
+        <ion-label class="padding-left" (click)="onSelectList(i)">
+          
+          <span>{{ shoppingList.name }}</span>
+          <p> <span>{{ shoppingList.completed }}</span> / <span>{{ shoppingList.items.length }}</span></p>
+        </ion-label>
+      <ion-button [color]="isCompleted(i)? 'success': 'danger'" slot="end" (click)="onDeleteShoppingList(i)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="onAddList()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
